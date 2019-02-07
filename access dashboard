@@ -25,3 +25,11 @@ kubectl config use-context default-system
 
 kubectl get nodes
 查看配置
+
+4、开启访问
+kubectl apply -f kubernetes-dashboard.yml
+kubectl get pods -n kube-system   #查看服务状态
+kubectl proxy
+然后使用浏览器访问
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
