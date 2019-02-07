@@ -27,9 +27,29 @@ kubectl get nodes
 查看配置
 
 4、开启访问
+可选择nodeport和kubectl proxy, 参考
+
 kubectl apply -f kubernetes-dashboard.yml
 kubectl get pods -n kube-system   #查看服务状态
 kubectl proxy
 然后使用浏览器访问
 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
+5、设置令牌认证
+创建dashboard管理用户
+
+kubectl create serviceaccount dashboard-admin -n kube-system
+
+绑定用户为集群管理用户
+
+kubectl create clusterrolebinding dashboard-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:dashboard-admin
+
+也可绑定为普通角色
+
+获取tocken
+
+kubectl get secret -n kube-system | grep dashboard-admin | awk '{print $1}'
+
+kubectl describe secret -n kube-system dashboard-admin-token-l7kpn
+
+在dashboard后台使用tocken方式登录即可
