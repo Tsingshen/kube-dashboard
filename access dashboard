@@ -35,6 +35,13 @@ kubectl proxy
 然后使用浏览器访问
 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
+修改
+也可以使用linux进行代理
+kubectl proxy --address='0.0.0.0' --accept-hosts='^*$'
+#--address指定监听地址，0.0.0.0为开放所有可访问。
+#--accept-hosts
+http://<linux的可以访问的IP>:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
 5、设置令牌认证
 创建dashboard管理用户
 
