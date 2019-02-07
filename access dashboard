@@ -1,0 +1,27 @@
+1、由于要使用kubectl proxy，开启远程访问
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+所以要配置windows版本的kubectl
+
+2、配置windows版本kubectl
+参考https://kubernetes.io/docs/tasks/tools/install-kubectl/
+由于下载网络不通
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/windows/amd64/kubectl.exe
+采用windows包管理工具Chocolatey
+https://chocolatey.org/install#install-with-powershellexe
+参考页面提示，使用管理员权限运行powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+成功后
+choco install kubernetes-cli
+安装后执行
+kubectl version
+查看返回版本，确认是否成功。
+
+3、配置kubectl
+在cmd下运行（依实际情况修改下面的配置命令参数）
+kubectl config set-credentials default-admin --username=admin --password=6666o9oIB2gHD88882quIfLMy6666
+kubectl config set-cluster default-cluster --server=https://cls-66668888.ccs.tencent-cloud.com --certificate-authority=/etc/kubernetes/cluster-ca.crt
+kubectl config set-context default-system --cluster=default-cluster --user=default-admin
+kubectl config use-context default-system
+
+kubectl get nodes
+查看配置
